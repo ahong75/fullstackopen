@@ -3,12 +3,14 @@ import personService from './services/persons.js'
 import Person from './components/Person'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
+import Notification from './components/Notification.js'
 
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('');
   const [show, setShow] = useState('');
+  const [notification, setNotification] = useState(null);
 
   useEffect(() => {
     console.log('effect')
@@ -58,6 +60,10 @@ const App = () => {
           setPersons(persons.concat(newPerson))
           setNewName('')
           setNewNumber(0)
+          setNotification([0, `${newPerson.name} was successfully added to the server`])
+          setTimeout(() => {
+            setNotification([])
+          }, 5000)
         })
     }
   }
@@ -71,6 +77,10 @@ const App = () => {
         .then(() => {
           console.log(`${person.name} deleted successfully`)
           setPersons(persons.filter(person => person.id != deleteId))
+          setNotification([0, `${person.name} was successfully deleted from the server`])
+          setTimeout(() => {
+            setNotification([])
+          }, 5000)
         })
     }
   }
@@ -84,12 +94,15 @@ const App = () => {
             setPersons(persons.map(oldPerson => oldPerson.id === newPerson.id ? newPerson : oldPerson));
             console.log(`${person.name} number changed successfully`)
           })
-
+          .catch(error => {
+            setNotification([1, `Info of ${person.name} has already been removed from the server`])
+          })
       }
   }
   return (
     <div>
-      <div>debug: {newName}</div>
+      {/* <div>debug: {newName}</div> */}
+      <Notification id={notification} notification={notification} />
       <h2>Phonebook</h2>
       <Filter show={show} handleShowChange={handleShowChange}/>
       <h2>add a new</h2>
