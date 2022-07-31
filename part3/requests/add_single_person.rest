@@ -1,7 +1,7 @@
-POST http://localhost:3001/api/persons
+POST https://aqueous-plateau-92796.herokuapp.com/api/persons
 content-type: application/json
 
 {
-    "name": "Jon Watson",
-    "number": "123-123-123"
+    "name": "Anna Kim",
+    "number": "123-133-123"
 }
