@@ -9,16 +9,6 @@ const Country = ({country}) => {
     const name = country.name.official
     const lat = country.capitalInfo[0]
     const lng = country.capitalInfo[1]
-    const [weatherData, setWeatherData] = useState([])
-
-        axios
-            .get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${api_key}`)
-            .then(response => {
-                console.log('promise fulfilled')
-                setWeatherData(response);
-                console.log(weatherData)
-            })
-
     console.log(country.languages)
     const languages = []
     for (const prop in country.languages) {
@@ -42,10 +32,7 @@ const Country = ({country}) => {
             </ul>
             <img src={country.flags.png}></img>
             
-            <h2>Weather in {name}</h2>
 
-            temperature {weatherData.main.temp}
-            wind {weatherData.wind.speed}
         </div>
     )
 }
