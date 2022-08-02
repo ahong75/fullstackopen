@@ -2,8 +2,8 @@ const mongoose = require('mongoose')
 
 if (process.argv.length != 3 && process.argv.length != 5) process.exit(1)
 
-const password = process.argv[2];
-const url = 'mongodb+srv://fullstack:uTvzsEsvUIIULpR8@cluster0.fwcjkzg.mongodb.net/phonebook?retryWrites=true&w=majority'
+const password = process.argv[2]
+const url = `mongodb+srv://fullstack:${password}@cluster0.fwcjkzg.mongodb.net/phonebook?retryWrites=true&w=majority`
 
 const personSchema = new mongoose.Schema({
     id: Number,
@@ -14,7 +14,7 @@ const personSchema = new mongoose.Schema({
 const Person = mongoose.model('Person', personSchema)
 mongoose
     .connect(url)
-    .then((result) => {
+    .then(() => {
         if (process.argv.length == 3) {
             console.log('phonebook')
             Person.find({}).then(result => {

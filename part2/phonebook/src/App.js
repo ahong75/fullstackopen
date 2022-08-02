@@ -65,6 +65,9 @@ const App = () => {
             setNotification([])
           }, 5000)
         })
+        .catch(error => {
+            setNotification([1, `${error.response.data.error}`])
+        })
     }
   }
   
